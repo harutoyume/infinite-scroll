@@ -28,7 +28,7 @@ const Item: React.FC<IItemProps> = ({ item }) => {
                 )}
                 <section className={styles.actions}>
                     <ItemEdit item={item}/>
-                    <Button onClick={handleDelete}>Удалить</Button>
+                    <Button onClick={handleDelete} danger>Удалить</Button>
                 </section>
                 </footer>
             </article>
