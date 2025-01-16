@@ -1,5 +1,13 @@
-.itemsList {
-  margin: 0 auto;
+.list {
+  margin: 28px auto;
   max-width: 700px;
-  border: 1px solid #b0b0b0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
 }

@@ -55,7 +55,7 @@ const itemsSlice = createSlice({
 
 export const fetchItems = createAsyncThunk('items/fetchItems', async (page: number, thunkAPI) => {
     try {
-      const response = await axios.get(`https://openlibrary.org/search.json?q=web+development&page=${page}&limit=10&sort=rating`);
+      const response = await axios.get(`https://openlibrary.org/search.json?q=web+development&page=${page}&limit=15&sort=rating`);
       return response.data.docs;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error });

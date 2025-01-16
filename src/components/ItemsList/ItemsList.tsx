@@ -5,6 +5,7 @@ import { fetchItems } from '../../store/itemsSlice'
 import styles from './ItemsList.module.css'
 import Item from '../Item/Item';
 import useItemListLogic from './ItemList.logic';
+import { List, Spin } from "antd";
 
 
 const ItemsList: React.FC = () => {
@@ -29,13 +30,16 @@ const ItemsList: React.FC = () => {
   }, [handleScroll]);
 
   return (
-    <>
-      <section className={styles.itemsList}>
-        {items.map((item) => (
-          <Item item={item} key={item.key}/>
-        ))}
+      <section className={styles.list}>
+        <List 
+          dataSource={items}
+          renderItem={item => <Item item={item} key={item.key} />}
+          locale={{ emptyText: 'Книги загружаются :)' }}
+        />
+        <div className={styles.loading}>
+          {isLoading && <Spin />}
+        </div>
       </section>
-    </>
   )
 }
 

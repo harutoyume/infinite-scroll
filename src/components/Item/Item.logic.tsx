@@ -5,11 +5,16 @@ import { IItem } from '../../models/Item';
 const useItemLogic = (item: IItem) => {
     const dispatch = useDispatch();
 
-    const handleEdit = () => {
-        const newTitle = prompt("Enter new title", item.title);
-        if (newTitle !== null) {
-            dispatch(editItem({ key: item.key, updatedItem: { title: newTitle } }))
-        }
+    const handleEdit = (newTitle: string, newSubtitle: string, author_name: string, publish_year: string) => {
+        dispatch(editItem({ 
+            key: item.key, 
+            updatedItem: { 
+                title: newTitle, 
+                subtitle: newSubtitle,
+                author_name: author_name.split(','),
+                publish_year: publish_year.split(','),
+            } 
+        }))
     }
 
     const handleDelete = () => {
