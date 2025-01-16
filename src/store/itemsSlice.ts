@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { IItem } from '../models/Item'
 
-interface ItemsState {
+export interface ItemsState {
   items: IItem[],
   isLoading: boolean,
   error: string,
