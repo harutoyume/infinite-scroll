@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import reducer from '../store/booksSlice';
@@ -17,10 +17,10 @@ const store = configureStore({
           key: 'testKey',
           title: 'Тестовая книга',
           subtitle: 'Это тестовая книга',
-          author_name: undefined,
-          publish_year: undefined,
+          author_name: ['Какой-то автор'],
+          publish_year: ['2025'],
           isbn: undefined
-        }
+        },
       ],
       isLoading: false,
       error: '',
@@ -34,6 +34,29 @@ function selectBookById(state: { books: BooksState }, id: string): IBook | undef
 }
 
 describe('Компонент Book в BooksList', () => {
+
+  it('показывает данные элемента в BooksList и изменяет их', async () => {
+    render(
+      <Provider store={store}>
+        <BooksList />
+      </Provider>
+    );
+
+    await act(async () => {
+      fireEvent.click(screen.getByText('Изменить'));
+    });
+
+    const titleInput = await screen.findByLabelText('Название');
+
+    await act(async () => {
+      fireEvent.change(titleInput, { target: { value: 'Новое название' } });
+      fireEvent.click(screen.getByText('Готово'));
+    });
+
+    const state = store.getState();
+    expect(selectBookById(state, 'testKey')?.title).toBe('Новое название');
+  });
+
   it('показывает данные элемента в BooksList и вызывает его удаление', () => {
     
     render(
@@ -50,4 +73,5 @@ describe('Компонент Book в BooksList', () => {
       
       expect(selectBookById(state, 'testKey')).toBeUndefined();
   });
+
 });

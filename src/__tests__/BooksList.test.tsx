@@ -15,8 +15,8 @@ const store = configureStore({
           key: 'testKey',
           title: 'Тестовая книга',
           subtitle: 'Это тестовая книга',
-          author_name: undefined,
-          publish_year: undefined,
+          author_name: ['Какой-то автор'],
+          publish_year: ['2025'],
           isbn: undefined
         }
       ],
