@@ -1,23 +1,23 @@
 import React from 'react'
 import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
-import { fetchItems } from '../../store/itemsSlice'
-import styles from './ItemsList.module.css'
-import Item from '../Item/Item';
-import useItemListLogic from './ItemList.logic';
+import { fetchBooks } from '../../store/booksSlice'
+import styles from './BooksList.module.css'
+import Book from '../Book/Book';
+import useBookListLogic from './BooksList.logic';
 import { List, Spin } from "antd";
 
 
-const ItemsList: React.FC = () => {
+const BooksList: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { items, page, isLoading } = useAppSelector(state => state.items)
+  const { books, page, isLoading } = useAppSelector(state => state.books)
   const initialFetch = useRef(false);
 
-  const { handleScroll } = useItemListLogic();
+  const { handleScroll } = useBookListLogic();
 
   useEffect(() => {
     if (!initialFetch.current && page === 1 && !isLoading) {
-      dispatch(fetchItems(page))
+      dispatch(fetchBooks(page))
       initialFetch.current = true
     }
   });
@@ -32,8 +32,8 @@ const ItemsList: React.FC = () => {
   return (
       <section className={styles.list}>
         <List 
-          dataSource={items}
-          renderItem={item => <Item item={item} key={item.key} />}
+          dataSource={books}
+          renderItem={book => <Book book={book} key={book.key} />}
           locale={{ emptyText: 'Книги загружаются :)' }}
         />
         <div className={styles.loading}>
@@ -43,4 +43,4 @@ const ItemsList: React.FC = () => {
   )
 }
 
-export default ItemsList
+export default BooksList;

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
-import { fetchItems } from '../../store/itemsSlice'
+import { fetchBooks } from '../../store/booksSlice'
 
 const throttle = (func: (...args: unknown[]) => void, limit: number) => {
   let timer: number | null = null;
@@ -15,9 +15,9 @@ const throttle = (func: (...args: unknown[]) => void, limit: number) => {
   }
 }
 
-const useItemListLogic = () => {
+const useBookListLogic = () => {
   const dispatch = useAppDispatch()
-  const { page, isLoading } = useAppSelector(state => state.items)
+  const { page, isLoading } = useAppSelector(state => state.books)
 
   const handleScroll = useCallback(throttle(() => {
     if (isLoading) return;
@@ -29,11 +29,11 @@ const useItemListLogic = () => {
     const threshold = height - height / 4; // Порог
 
     if (scrollPosition >= threshold) {
-      dispatch(fetchItems(page));
+      dispatch(fetchBooks(page));
     }
   }, 200), [isLoading, page, dispatch]); // Ограничение вызова функции в 200 мс
 
   return { handleScroll };
 }
 
-export default useItemListLogic;
+export default useBookListLogic;

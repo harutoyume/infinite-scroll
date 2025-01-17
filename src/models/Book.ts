@@ -1,4 +1,4 @@
-export interface IItem {
+export interface IBook {
     key: string;
     title: string | undefined;
     subtitle: string | undefined;

@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Button, Modal, Form, Input } from 'antd';
-import useItemLogic from "./Item.logic";
-import { IItem } from '../../models/Item';
+import useBookLogic from "./Book.logic";
+import { IBook } from '../../models/Book';
 
-interface IItemProps {
-    item: IItem;
+interface IBookProps {
+    book: IBook;
 }
 
-const ItemEdit = ({item} : IItemProps) => {
+const BookEdit = ({book} : IBookProps) => {
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { handleEdit } = useItemLogic(item);
+  const { handleEdit } = useBookLogic(book);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -36,10 +36,10 @@ const ItemEdit = ({item} : IItemProps) => {
       </Button>
       <Modal title="Изменить информацию" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} cancelText="Отмена" okText="Готово">
         <Form layout='vertical' form={form} initialValues={{ 
-          title: item.title, 
-          subtitle: item.subtitle, 
-          author_name: item.author_name?.join(', '), 
-          publish_year: item.publish_year?.join(', ') 
+          title: book.title, 
+          subtitle: book.subtitle, 
+          author_name: book.author_name?.join(', '), 
+          publish_year: book.publish_year?.join(', ') 
           }}>
             <Form.Item label="Название" name="title">
                 <Input />
@@ -59,4 +59,4 @@ const ItemEdit = ({item} : IItemProps) => {
   );
 };
 
-export default ItemEdit;
+export default BookEdit;

@@ -1,14 +1,14 @@
 import { useDispatch } from 'react-redux';
-import { editItem, deleteItem } from '../../store/itemsSlice';
-import { IItem } from '../../models/Item';
+import { editBook, deleteBook } from '../../store/booksSlice';
+import { IBook } from '../../models/Book';
 
-const useItemLogic = (item: IItem) => {
+const useBookLogic = (book: IBook) => {
     const dispatch = useDispatch();
 
     const handleEdit = (newTitle: string, newSubtitle: string, author_name: string, publish_year: string) => {
-        dispatch(editItem({ 
-            key: item.key, 
-            updatedItem: { 
+        dispatch(editBook({ 
+            key: book.key, 
+            updatedBook: { 
                 title: newTitle, 
                 subtitle: newSubtitle,
                 author_name: author_name.split(','),
@@ -18,10 +18,10 @@ const useItemLogic = (item: IItem) => {
     }
 
     const handleDelete = () => {
-        dispatch(deleteItem(item.key))
+        dispatch(deleteBook(book.key))
     }
 
     return { handleEdit, handleDelete }
 }
 
-export default useItemLogic;
+export default useBookLogic;
